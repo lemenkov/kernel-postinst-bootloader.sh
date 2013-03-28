@@ -10,6 +10,8 @@ if [ -f /etc/machine-id ]; then
 	machine_id="$(cat /etc/machine-id)"
 fi
 
+rootdevice=$(grep -o -P "(?<=root=)\S+" /proc/cmdline)
+
 title="Default OS ($version)"
 if [ -f /etc/os-release ]; then
 	title="$(grep -o -P "(?<=PRETTY_NAME=\")(.*)(?=\")" /etc/os-release) ($version)"
@@ -26,6 +28,6 @@ touch ${conffile}
 echo "title   ${title}" >> ${conffile}
 echo "version ${version}" >> ${conffile}
 echo "machine-id ${machine_id}" >> ${conffile}
-echo "options ${DEFAULTCMDLINE}" >> ${conffile}
+echo "options root=${rootdevice} ${DEFAULTCMDLINE}" >> ${conffile}
 echo "linux   /vmlinuz-${version}" >> ${conffile}
 echo "initrd  /initramfs-${version}.img" >> ${conffile}
