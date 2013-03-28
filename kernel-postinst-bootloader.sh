@@ -10,7 +10,7 @@ if [ -f /etc/machine-id ]; then
 	machine_id="$(cat /etc/machine-id)"
 fi
 
-title="RedHat Linux ($version)"
+title="Default OS ($version)"
 if [ -f /etc/os-release ]; then
 	title="$(grep -o -P "(?<=PRETTY_NAME=\")(.*)(?=\")" /etc/os-release) ($version)"
 fi
