@@ -30,4 +30,6 @@ echo "version ${version}" >> ${conffile}
 echo "machine-id ${machine_id}" >> ${conffile}
 echo "options root=${rootdevice} ${DEFAULTCMDLINE}" >> ${conffile}
 echo "linux   /vmlinuz-${version}" >> ${conffile}
+if [ -f /boot/initramfs-${version}.img ]; then
 echo "initrd  /initramfs-${version}.img" >> ${conffile}
+fi
