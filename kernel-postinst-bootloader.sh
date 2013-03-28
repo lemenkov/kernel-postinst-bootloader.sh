@@ -12,7 +12,7 @@ fi
 
 title="RedHat Linux ($version)"
 if [ -f /etc/os-release ]; then
-	title="$(sed 's/ release.*$//' < /etc/redhat-release) ($version)"
+	title="$(grep -o -P "(?<=PRETTY_NAME=\")(.*)(?=\")" /etc/os-release) ($version)"
 fi
 
 os_id="$(echo "$title" | tr 'A-Z' 'a-z' | cut -d' ' -f1)"
