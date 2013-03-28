@@ -24,6 +24,7 @@ conffile="/boot/loader/entries/${machine_id+${machine_id}-}${os_id}-${version}.c
 
 touch ${conffile}
 echo "title   ${title}" >> ${conffile}
+echo "version ${version}" >> ${conffile}
 echo "machine-id ${machine_id}" >> ${conffile}
 echo "linux   /vmlinuz-${version}" >> ${conffile}
 echo "initrd  /initramfs-${version}.img" >> ${conffile}
