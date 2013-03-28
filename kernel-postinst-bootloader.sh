@@ -26,6 +26,6 @@ touch ${conffile}
 echo "title   ${title}" >> ${conffile}
 echo "version ${version}" >> ${conffile}
 echo "machine-id ${machine_id}" >> ${conffile}
+echo "options ${DEFAULTCMDLINE}" >> ${conffile}
 echo "linux   /vmlinuz-${version}" >> ${conffile}
 echo "initrd  /initramfs-${version}.img" >> ${conffile}
-echo "options ${DEFAULTCMDLINE}" >> ${conffile}
