@@ -32,9 +32,9 @@ fi
 
 rootdevice=$(grep -o -P "(?<=root=)\S+" /proc/cmdline)
 
-title="Default OS ($version)"
+title="Linux"
 if [ -f /etc/os-release ]; then
-	title="$(grep -o -P "(?<=PRETTY_NAME=\")(.*)(?=\")" /etc/os-release) ($version)"
+	title="$(grep -o -P "(?<=PRETTY_NAME=\")(.*)(?=\")" /etc/os-release)"
 fi
 
 os_id="$(echo "$title" | tr 'A-Z' 'a-z' | cut -d' ' -f1)"
@@ -44,12 +44,14 @@ fi
 
 conffile="/boot/loader/entries/${machine_id+${machine_id}-}${os_id}-${version}.conf"
 
-touch ${conffile}
-echo "title   ${title}" >> ${conffile}
-echo "version ${version}" >> ${conffile}
-echo "machine-id ${machine_id}" >> ${conffile}
-echo "options root=${rootdevice} ${DEFAULTCMDLINE}" >> ${conffile}
-echo "linux   /vmlinuz-${version}" >> ${conffile}
+cat <<EOF > ${conffile}
+title   ${title}
+version ${version}
+machine-id ${machine_id}
+options root=${rootdevice} ${DEFAULTCMDLINE}
+linux   /vmlinuz-${version}
+EOF
+
 if [ -f /boot/initramfs-${version}.img ]; then
 echo "initrd  /initramfs-${version}.img" >> ${conffile}
 fi
